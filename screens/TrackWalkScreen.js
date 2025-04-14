@@ -17,6 +17,7 @@ export default function TrackWalkScreen() {
   const [markers, setMarkers] = useState([]);
   const [isTracking, setIsTracking] = useState(false);
   const [showSummary, setShowSummary] = useState(false); // <-- Modal state
+  const [heading, setHeading] = useState(null);
 
   const watchRef = useRef(null);
   const intervalRef = useRef(null);
@@ -50,6 +51,10 @@ export default function TrackWalkScreen() {
     setDuration(0);
     setRouteCoords([]);
     setMarkers([]);
+    Location.watchHeadingAsync((h) => {
+      setHeading(h.trueHeading);
+    });
+
     prevLocRef.current = null;
 
     intervalRef.current = setInterval(() => {
@@ -132,6 +137,9 @@ export default function TrackWalkScreen() {
         location={location}
         routeCoords={routeCoords}
         markers={markers}
+        altitude={altitude}
+        speed={speed}
+        heading={heading}
       />
       <StatBar
         distance={distance}
