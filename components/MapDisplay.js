@@ -70,6 +70,17 @@ export default function MapDisplay({
           Heading: {heading !== null ? `${Math.round(heading)}°` : "..."}
         </Text>
       </View>
+      <View style={styles.compassContainer}>
+        <View
+          style={[
+            styles.needleWrapper,
+            { transform: [{ rotate: `${-heading}deg` }] },
+          ]}
+        >
+          <View style={styles.needleHalfTop} />
+          <View style={styles.needleHalfBottom} />
+        </View>
+      </View>
 
       <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
         <Ionicons name="locate" size={24} color="black" />
@@ -101,5 +112,36 @@ const styles = StyleSheet.create({
   overlayText: {
     color: "#fff",
     fontSize: 12,
+  },
+  compassContainer: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.28)",
+    borderRadius: 20,
+  },
+
+  needleWrapper: {
+    width: 6,
+    height: 30,
+    borderRadius: 3,
+    overflow: "hidden",
+    alignItems: "center",
+  },
+
+  needleHalfTop: {
+    backgroundColor: "red",
+    height: "50%",
+    width: "100%",
+  },
+
+  needleHalfBottom: {
+    backgroundColor: "gray",
+    height: "50%",
+    width: "100%",
   },
 });
